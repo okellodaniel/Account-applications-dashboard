@@ -37,10 +37,15 @@ def load_data_from_api(*args, **kwargs):
     Template for loading data from API
     """
     dataset_name = 'customer-onboarding-applications'
+    dataset_path = f'./dataset/{dataset_name}.zip'
     url = f'danielokello/{dataset_name}'
-    kaggle_downloader(url)
 
-    unzip_dataset(f'./dataset/{dataset_name}.zip', './dataset')
+      # Check if the dataset is present
+    if not os.path.exists(dataset_path):
+        # If not, download the dataset
+        kaggle_downloader(url)
+
+    unzip_dataset(dataset_path, './dataset')
 
     data_dict = {
     "Id": str,
@@ -81,9 +86,12 @@ def load_data_from_api(*args, **kwargs):
 
     parse_dates = ['ApplicationDate','DateOfBirth','ExpiryDate','IssueDate','ApplicationSubmittedAt','ApprovalRequestDate','ApprovalDate','DeclineDate']
 
-    return pd.read_csv('./dataset/Applications.csv',dtype=data_dict,sep=',',index_col=None)
+    df = pd.read_csv('./dataset/Applications.csv',dtype=data_dict,sep=',',index_col=None,parse_dates=parse_dates)
 
+    for col in parse_dates:
+        df[col] = (pd.to_datetime(df[col]).dt.round('us').astype('datetime64[us]').astype(int))
 
+    return df
 
 
 @test

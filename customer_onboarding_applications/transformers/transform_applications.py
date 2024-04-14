@@ -60,8 +60,11 @@ def transform(data, *args, **kwargs):
         "AlternativeBankAccountNumber": "alternative_bank_account_number"
     }, inplace=True)
 
-    return data
+    data.drop(columns={
+        'aggregator_id','other_name','number_of_frames','photo_match_score','customer_photo_match_status','liveness_score','liveness_status','aggregator_id','external_reference'
+    },inplace=True)
 
+    return data
 
 @test
 def test_output(output, *args) -> None:
