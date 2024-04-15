@@ -1,12 +1,14 @@
+{{ 
+    config(materialized="view") 
+}}
+
 with 
 
 source as (
-
     select * from {{ source('staging', 'devices') }}
-
 ),
 
-renamed as (
+devices as (
 
     select
         id,
@@ -17,4 +19,4 @@ renamed as (
 
 )
 
-select * from renamed
+select * from devices

@@ -20,11 +20,7 @@ macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
 target-path: "target"  # directory which will store compiled SQL files
-clean-targets:         # directories to be removed by `dbt clean`
-  - "target"
-  - "dbt_packages"
-
-
+clean-targets: [target, dbt_packages, logs]
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 
@@ -36,5 +32,15 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
-  customer_onboarding_applications:
+  stg_applications:
+    staging:
+      materialized: view
+    database: data-talks-412218
+    schema: customer_onboarding_applications
+
+  stg_devices:
+    staging:
+      materialized: view
+    database: data-talks-412218
+    schema: customer_onboarding_applications
   

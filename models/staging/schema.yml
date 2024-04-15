@@ -19,6 +19,9 @@ models:
             - not_null
         - name: tenant_id
           description: Tenant identifier
+          tests:
+          - unique
+          - not_null
         - name: application_date
           description: Date of application
           tests:
