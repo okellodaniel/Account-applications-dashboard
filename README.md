@@ -1,5 +1,5 @@
 # Account applications
-__
+_
 
 ### Introduction
 This is a project that is done in fulfilment of the data engineering zoomcamp course. It entails various technologies that are consumed to create a data pipeline and ingest a dataset from kaggle, clean, transform, analyse, aggregate the data and finally create a report. 
