@@ -20,6 +20,7 @@ blocks:
   configuration: {}
   downstream_blocks:
   - export_devices_postgres
+  - export_devices_big_query
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -35,8 +36,7 @@ blocks:
 - all_upstream_blocks_executed: true
   color: null
   configuration: {}
-  downstream_blocks:
-  - export_devices_big_query
+  downstream_blocks: []
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -63,7 +63,7 @@ blocks:
   timeout: null
   type: data_exporter
   upstream_blocks:
-  - export_devices_postgres
+  - trasnform_device_data
   uuid: export_devices_big_query
 cache_block_output_in_memory: false
 callbacks: []

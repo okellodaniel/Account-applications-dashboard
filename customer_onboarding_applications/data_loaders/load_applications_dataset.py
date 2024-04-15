@@ -89,7 +89,7 @@ def load_data_from_api(*args, **kwargs):
     df = pd.read_csv('./dataset/Applications.csv',dtype=data_dict,sep=',',index_col=None,parse_dates=parse_dates)
 
     for col in parse_dates:
-        df[col] = (pd.to_datetime(df[col]).dt.round('us').astype('datetime64[us]').astype(int))
+        df[col] = (pd.to_datetime(df[col]).dt.round('us').astype('datetime64[us]'))
 
     return df
 
