@@ -177,4 +177,13 @@ dataset/Applications.csv
 dataset/customer-onboarding_applications.zip
 
 gcp.json
+<<<<<<< HEAD
+# Default .gitignore content added by dbt Cloud# you shouldn't commit these into source control
+# these are the default directory names, adjust/add to fit your needs
+target/
+dbt_packages/
+logs/
+# end dbt Cloud content
+=======
 kaggle.json
+>>>>>>> 96c87463927604aaf1d2860d77b88eb9e278912b
