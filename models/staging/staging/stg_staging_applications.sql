@@ -1,51 +1,70 @@
-with 
+{{ config(materialized="view") }}
 
-source as (
+with
+    applications as (
+        select *, row_number() over (partition by id, application_date) as rn
+        from {{ source("staging", "applications_partitioned_clustered") }}
+        where id is not null
+    )
+select
+    -- identifiers
+    {{ dbt_utils.generate_surrogate_key(["id", "application_date"]) }}
+    as application_id,
 
-    select * from {{ source('staging', 'applications') }}
+    -- account details
+    {{
+        dbt.safe_cast(
+            "alternative_mobile_money_number", api.Column.translate_type("integer")
+        )
+    }} as alternative_mobile_money_number,
+    {{
+        dbt.safe_cast(
+            "alternative_phone_number", api.Column.translate_type("integer")
+        )
+    }} as alternative_phone_number,
+    {{ dbt.safe_cast("tin", api.Column.translate_type("integer")) }} as tin,
+    {{ dbt.safe_cast("card_number", api.Column.translate_type("integer")) }}
+    as card_number,
+    {{
+        dbt.safe_cast(
+            "alternative_bank_account_number", api.Column.translate_type("integer")
+        )
+    }} as alternative_bank_account_number,
+    {{ dbt.safe_cast("card_number", api.Column.translate_type("integer")) }}
+    as card_number,
 
-),
+    -- timestamps
+    cast(application_date as timestamp) as application_date,
+    cast(date_of_birth as timestamp) as date_of_birth,
+    cast(expiry_date as timestamp) as expiry_date,
+    cast(issue_date as timestamp) as issue_date,
+    cast(application_submitted_at as timestamp) as application_submitted_at,
+    cast(approval_request_date as timestamp) as approval_request_date,
+    cast(approval_date as timestamp) as approval_date,
+    cast(decline_date as timestamp) as decline_date,
 
-renamed as (
+    account_name,
+    account_type,
+    alternative_account_type,
+    alternative_bank_name,
+    tenant_id
+    channel,
+    currency,
+    district,
+    gender,
+    given_name,
+    marital_status,
+    monthly_income,
+    nin,
+    occupation,
+    status,
+    agent_code,
+    surname,
+    village,
+    nationality,
 
-    select
-        id,
-        tenant_id,
-        application_date,
-        account_name,
-        account_type,
-        alternative_account_type,
-        alternative_mobile_money_number,
-        alternative_phone_number,
-        alternative_bank_name,
-        tin,
-        card_number,
-        channel,
-        currency,
-        date_of_birth,
-        district,
-        expiry_date,
-        gender,
-        given_name,
-        issue_date,
-        marital_status,
-        monthly_income,
-        nin,
-        occupation,
-        phone_number,
-        status,
-        surname,
-        village,
-        nationality,
-        agent_code,
-        application_submitted_at,
-        approval_request_date,
-        approval_date,
-        decline_date,
-        alternative_bank_account_number
+from applications
+where rn = 1
 
-    from source
-
-)
-
-select * from renamed
+-- dbt build --select <model_name> --vars '{'is_test_run': 'false'}'
+{% if var("is_test_run", default=true) %} limit 100 {% endif %}

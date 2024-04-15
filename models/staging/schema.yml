@@ -4,7 +4,7 @@ sources:
     database: data-talks-412218
     schema: customer_onboarding_applications
     tables:
-      - name: applications
+      - name: applications_partitioned_clustered
       - name: devices
 models:
     - name: stg_applications
