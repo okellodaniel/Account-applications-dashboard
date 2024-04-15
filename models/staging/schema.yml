@@ -1,0 +1,131 @@
+version: 2
+
+sources:
+  - name: staging
+    database: data-talks-412218
+    schema: customer-onboarding-applications
+
+      # loaded_at_field: record_loaded_at
+    tables:
+      - name: applications
+      - name: tenants
+      - name: devices
+      - name: agents
+models:
+    - name: stg_applications
+      description: >
+        This data is a collection of customer onboarding applications that are obtained through channels i.e. A web portal, USSD, WhatsApp and a mobile application for multiple B2B SAAS customers known as tenants by a customer onboarding solutions provider. 
+        The data spans a period of 4 years from 2018 to 2024.
+      columns:
+        - name: id
+          description: Unique identifier
+          tests:
+            - unique
+            - not_null
+        - name: tenant_id
+          description: Tenant identifier
+        - name: application_date
+          description: Date of application
+          tests:
+            - not_null
+        - name: account_name
+          description: Name of the account
+        - name: account_type
+          description: Type of the account
+        - name: alternative_account_type
+          description: Alternative type of the account
+        - name: alternative_mobile_money_number
+          description: Alternative mobile money number
+        - name: alternative_phone_number
+          description: Alternative phone number
+        - name: alternative_bank_name
+          description: Alternative bank name
+        - name: tin
+          description: Tax Identification Number
+        - name: card_number
+          description: Card number
+        - name: channel
+          description: Channel
+        - name: currency
+          description: Currency
+        - name: date_of_birth
+          description: Date of birth
+        - name: district
+          description: District
+        - name: expiry_date
+          description: Expiry date
+        - name: gender
+          description: Gender
+        - name: given_name
+          description: Given name
+        - name: issue_date
+          description: Issue date
+        - name: marital_status
+          description: Marital status
+        - name: monthly_income
+          description: Monthly income
+        - name: nin
+          description: National Identification Number
+        - name: occupation
+          description: Occupation
+        - name: phone_number
+          description: Phone number
+        - name: status
+          description: Status
+        - name: surname
+          description: Surname
+        - name: village
+          description: Village
+        - name: nationality
+          description: Nationality
+        - name: agent_code
+          description: Agent code
+        - name: application_submitted_at
+          description: Application submitted at
+        - name: approval_request_date
+          description: Approval request date
+        - name: approval_date
+          description: Approval date
+        - name: decline_date
+          description: Decline date
+        - name: alternative_bank_account_number
+          description: Alternative bank account number
+          
+    - name: stg_agents
+      description: This represents the agents information. Agents are individuals involved in the customer onboarding process. Thier duty is to collect data via 2 main channels, i.e. Mobile, and the web portal.
+      columns:
+      - name: id
+        description: Unique identifier
+        tests:
+          - unique
+          - not_null
+      - name: tenant_id
+        description: Tenant identifier
+      - name: device_id
+        description: Device identifier
+      - name: agent_code
+        description: Agent code
+
+    - name: stg_tenants
+      description: This model represents the tenants information.
+      columns:
+        - name: id
+          description: Unique identifier
+          tests:
+          - unique
+          - not_null
+        - name: tenant_name
+          description: Name of the tenant.
+
+    - name: stg_devices
+      description: This represents the device data
+      columns:
+        - name: id
+          description: Unique identifier
+          tests:
+            - unique
+            - not_null
+        - name: device_name
+          description:  Name of the device
+        - name: device_imei
+          description: IMEI of the device
