@@ -37,59 +37,61 @@ def load_data_from_api(*args, **kwargs):
     Template for loading data from API
     """
     dataset_name = 'customer-onboarding-applications'
+    dataset_path = f'./dataset/{dataset_name}.zip'
     url = f'danielokello/{dataset_name}'
-    kaggle_downloader(url)
 
-    unzip_dataset(f'./dataset/{dataset_name}.zip', './dataset')
+      # Check if the dataset is present
+    if not os.path.exists(dataset_path):
+        # If not, download the dataset
+        kaggle_downloader(url)
+
+    unzip_dataset(dataset_path, './dataset')
 
     data_dict = {
     "Id": str,
     "TenantId": str,
     "AggregatorId": str,
     "ExternalReference": str,
-    "ApplicationDate": str,
     "AccountName": str,
     "AccountType": str,
     "AlternativeAccountType": str,
-    "AlternativeMobileMoneyNumber": float,
-    "AlternativePhoneNumber": float,
+    "AlternativeMobileMoneyNumber": pd.Int64Dtype(),
+    "AlternativePhoneNumber": pd.Int64Dtype(),
     "AlternativeBankName": str,
-    "Tin": str,
-    "CardNumber": str,
+    "Tin": pd.Int64Dtype(),
+    "CardNumber": pd.Int64Dtype(),
     "Channel": str,
     "Currency": str,
-    "DateOfBirth": str,
     "District": str,
-    "ExpiryDate": str,
     "Gender": str,
     "GivenName": str,
-    "IssueDate": str,
     "MaritalStatus": str,
     "MonthlyIncome": str,
     "Nin": str,
     "Occupation": str,
     "OtherName": str,
-    "PhoneNumber": float,
+    "PhoneNumber": pd.Int64Dtype(),
     "Status": str,
     "Surname": str,
     "LivenessStatus": str,
     "LivenessScore": float,
     "CustomerPhotoMatchStatus": str,
     "PhotoMatchScore": float,
-    "NumberOfFrames": int,
+    "NumberOfFrames": pd.Int64Dtype(),
     "Village": str,
     "Nationality": str,
     "AgentCode": str,
-    "ApplicationSubmittedAt": str,
-    "ApprovalRequestDate": str,
-    "ApprovalDate": str,
-    "DeclineDate": str,
-    "AlternativeBankAccountNumber": str
+    "AlternativeBankAccountNumber": pd.Int64Dtype()
     }
 
-    return pd.read_csv('./dataset/Applications.csv',dtype=data_dict,sep=',',index_col=None)
+    parse_dates = ['ApplicationDate','DateOfBirth','ExpiryDate','IssueDate','ApplicationSubmittedAt','ApprovalRequestDate','ApprovalDate','DeclineDate']
 
+    df = pd.read_csv('./dataset/Applications.csv',dtype=data_dict,sep=',',index_col=None,parse_dates=parse_dates)
 
+    for col in parse_dates:
+        df[col] = (pd.to_datetime(df[col]).dt.round('us').astype('datetime64[us]').astype(int))
+
+    return df
 
 
 @test
