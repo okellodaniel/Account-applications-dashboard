@@ -1,16 +1,11 @@
 version: 2
-
 sources:
   - name: staging
     database: data-talks-412218
-    schema: customer-onboarding-applications
-
-      # loaded_at_field: record_loaded_at
+    schema: customer_onboarding_applications
     tables:
       - name: applications
-      - name: tenants
       - name: devices
-      - name: agents
 models:
     - name: stg_applications
       description: >
@@ -90,7 +85,7 @@ models:
           description: Decline date
         - name: alternative_bank_account_number
           description: Alternative bank account number
-          
+
     - name: stg_agents
       description: This represents the agents information. Agents are individuals involved in the customer onboarding process. Thier duty is to collect data via 2 main channels, i.e. Mobile, and the web portal.
       columns:
