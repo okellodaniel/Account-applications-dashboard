@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: dim_agents
+    description: > 
+      This represents the agents information. Agents are individuals involved in the customer onboarding process. 
+      Their duty is to collect data via 2 main channels, i.e. Mobile, and the web portal.
+    columns:
+      - name: id
+        data_type: int64
+        description: "This is the unique identifier of an agent"
+
+      - name: tenant_id
+        data_type: string
+        description: "This is a tenant that an agent belongs to"
+
+      - name: device_id
+        data_type: string
+        description: "This is the device assigned to a specific agent"
+
+      - name: agent_code
+        data_type: string
+        description: "This is a code that identifies a specific agent"
+
+  - name: dim_tenants
+    description: "A tenant is a customer"
+    columns:
+      - name: id
+        data_type: string
+        description: "A unique identifier of the tenant"
+
+      - name: tenant_name
+        data_type: string
+        description: "This is the tenant name"
