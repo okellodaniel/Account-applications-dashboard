@@ -14,18 +14,18 @@ This project aligns with the broader goal of leveraging technology to improve fi
 ### Architecture
 The pipeline leverages the following tools:
 
-**[Kaggle](https://www.kaggle.com)**: Source of the datasets.
-**[Mage.ai](https://docs.mage.ai/introduction/overview)**: Data orchestration tool for automating data download and transformation, as well as exportation to the data warehouse.
-**[BigQuery](https://docs.mage.ai/introduction/overview)**: Cloud data warehouse for storing the transformed data, and transformed fact tables from DBT cloud.
-**[dbt](https://www.getdbt.com)**: Data transformation tool for building and running data models in BigQuery.
-**[Looker Studio](https://cloud.google.com/looker-studio?gad_source=1&gclid=CjwKCAjwoPOwBhAeEiwAJuXRh6oiq757A9yQTunwbkPM9JeszNWu1yQZWbyR3a3FDT_Zfdf4E0OuOhoCHQ4QAvD_BwE&gclsrc=aw.ds)**: Data visualization platform for creating interactive dashboards.
+- **[Kaggle](https://www.kaggle.com)**: Source of the datasets.
+- **[Mage.ai](https://docs.mage.ai/introduction/overview)**: Data orchestration tool for automating data download and transformation, as well as exportation to the data warehouse.
+- **[BigQuery](https://docs.mage.ai/introduction/overview)**: Cloud data warehouse for storing the transformed data, and transformed fact tables from DBT cloud.
+- **[dbt](https://www.getdbt.com)**: Data transformation tool for building and running data models in BigQuery.
+- **[Looker Studio](https://cloud.google.com/looker-studio?gad_source=1&gclid=CjwKCAjwoPOwBhAeEiwAJuXRh6oiq757A9yQTunwbkPM9JeszNWu1yQZWbyR3a3FDT_Zfdf4E0OuOhoCHQ4QAvD_BwE&gclsrc=aw.ds)**: Data visualization platform for creating interactive dashboards.
 
 #### Pipeline Overview
-**Data Acquisition**: Mage.ai was leveraged to download the datasets from Kaggle, a kaggle.json file with the necessary credentials was used to facilitate this porcess. 
-**Data Transformation**: Mage.ai was then used for preliminary cleaning, transformation of the dataset, and prepareation the data for loading into BigQuery (Exportation). All of this was achieved through a pipeline setup.
-**Data Storage**: The transformed data is loaded into BigQuery tables inside the customer-onboarding-applications schema.
-**Data Modeling**: dbt was leveraged for advance tranformation and data model creation on top of the BigQuery tables, creating metrics and dimensions for analysis.
-**Data Visualization**: Looker Studio connects to the dbt models in big query allowing for creation of an interactive dashboard.
+- **Data Acquisition**: Mage.ai was leveraged to download the datasets from Kaggle, a kaggle.json file with the necessary credentials was used to facilitate this porcess. 
+- **Data Transformation**: Mage.ai was then used for preliminary cleaning, transformation of the dataset, and prepareation the data for loading into BigQuery (Exportation). All of this was achieved through a pipeline setup.
+- **Data Storage**: The transformed data is loaded into BigQuery tables inside the customer-onboarding-applications schema.
+- **Data Modeling**: dbt was leveraged for advance tranformation and data model creation on top of the BigQuery tables, creating metrics and dimensions for analysis.
+- **Data Visualization**: Looker Studio connects to the dbt models in big query allowing for creation of an interactive dashboard.
 
 #### Benefits of this architectural decision
 - **Automation**: The pipeline automates data ingestion and transformation, reducing manual work and ensuring consistency.
