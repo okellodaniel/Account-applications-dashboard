@@ -20,7 +20,8 @@ services:
       - 6789:6789
     volumes:
       - .:/home/src/
-      - ~/Documents/secrets/personal-gcp.json:/home/src/personal-gcp.json
+      - ~/Documents/secrets/gcp-credentials-file.json:/home/src/gcp-credentials-file.json
+      - ~/Documents/secrets/.kaggle:/root/.kaggle/
     restart: on-failure:5
   postgres:
     image: postgres:14

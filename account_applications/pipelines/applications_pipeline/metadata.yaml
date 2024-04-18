@@ -70,5 +70,5 @@ spark_config: {}
 tags: []
 type: python
 uuid: applications_pipeline
-variables_dir: /home/src/mage_data/customer_onboarding_applications
+variables_dir: /home/src/mage_data/account_applications
 widgets: []
