@@ -22,7 +22,7 @@ variable "container_memory" {
 
 variable "docker_image" {
   description = "Docker image url."
-  default     = "mageai/mageai:azure"
+  default     = "mageai/mageai:latest"
 }
 
 variable "key_vault_name" {
